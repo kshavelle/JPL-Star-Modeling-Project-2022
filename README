@@ -1,0 +1,18 @@
+This directory creates a disk, outflow, and spherical envelope...
+1) First run sphere+outflow+disk_setup.py to create density distributions - you can run all distributions or individual components: 
+	 python sphere+outflow+disk_setup.py -model_type=type -dimension=type 
+You can select what model type (disk, sphere, outflow, or all) and what dimension you would like to plot them in (3d or 2d, 2d only works for the disk and sphere). 
+	Ex: If you wanted to plot the total distribution and plot in 3d you would enter...
+ 	python sphere+outflow+disk_setup.py -model_type=all -dimension=3D
+2) Computes dust temperature distribution using thermal MonteCarlo simulation
+	radmc3d mctherm 
+* Note: to run this all input files must be created in the disk-bipoutflow-envelope directory (these include dustkappa_silicate.inp and dustopac.inp that are not created by the setup files and must be imported from else where...
+3) Plot the SED 
+	python plot_spectra.py
+4) Create the dust continuum image
+	radmc3d image lambda 1000 
+5) Plot the image 
+	python plot_image.py
+
+*Note: For plotting in 2d with the sphere+outflow+disk file...
+The grid established in the bringing of the file establishes where the grid terminates and therefore where the geometry stops. Because we chose to setup all geometries in one file with one specified grid at the top (which is used for both the disc and the sphere), we experience issues as the disk radius is much smaller than the sphere radius/ When we allow for the whole sphere to be seen, the diks does not appear as it is so small it cannot be seen. Therefore, if you want to make the 2d plot, you must establish the grids from the sphere and the disk separately, running them in separate files first.
